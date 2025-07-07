@@ -1,0 +1,41 @@
+{
+  "name": "Hussein Al Hussein",
+  "contact": {
+    "phone": "+212 724-119902",
+    "email": "husseinalhussein565@gmail.com",
+    "github": "@husseinalhussein1",
+    "linkedin": "@husseinalhussein1"
+  },
+  "summary": "Highly motivated Full Stack Developer with expertise in ASP.NET Core and modern front-end technologies...",
+  "technicalSkills": {
+    "backEnd": [".NET Core", "ASP.NET MVC", "API Development"],
+    "frontEnd": ["HTML5", "CSS3", "React", "Angular"],
+    "tools": ["Visual Studio", "GitHub", "SQL Server"],
+    "languages": ["C#", "TypeScript"]
+  },
+  "relevantExperience": [
+    {
+      "role": "Back-End Developer | Small Hotel Project",
+      "description": "Developed back-end services using ASP.NET Core and Entity Framework Core..."
+    },
+    {
+      "role": "Full Stack Developer | TV Channel Website",
+      "description": "Built a complete website using ASP.NET Core MVC..."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Computer Science",
+      "institution": "Idlib University",
+      "duration": "2021 – 2026"
+    }
+  ],
+  "trainingCourses": [
+    {
+      "name": "Back-End API Development with ASP.NET Core",
+      "duration": "30 hours"
+    }
+  ],
+  "softSkills": ["Team Collaboration", "Problem-Solving", "Adaptability"],
+  "languages": ["Arabic", "English"]
+}
