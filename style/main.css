@@ -226,7 +226,10 @@ section h3 {
   .skill-cat, .exp-card, .edu-card, .train-card {
     padding: 12px 10px 10px 12px;
   }
-  .glass { padding: 14px 8px; }
+  .glass { padding: 14px 10px; }
+  .skill-cat::before, .exp-card::before, .edu-card::before, .train-card::before {
+    display: none !important;
+  }
 }
 ::-webkit-scrollbar {
   width: 8px;
