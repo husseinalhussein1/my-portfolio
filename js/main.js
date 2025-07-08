@@ -89,8 +89,8 @@ setTimeout(() => {
   }
 }, 100);
 
-// --- Portfolio rendering (as before) ---
-const jsonPath = 'cv.json';
+// --- Portfolio rendering (updated for new JSON structure) ---
+const jsonPath = 'data/cv.json';
 
 fetch(jsonPath)
   .then(res => res.json())
@@ -100,22 +100,22 @@ function renderPortfolio(data) {
   const app = document.getElementById('app');
   app.innerHTML = `
     <section class="hero glass">
-      <h1>${data.name}</h1>
+      <h1>${data.personalInfo.name}</h1>
       <h2>${data.summary}</h2>
       <div class="contact">
-        <a href="mailto:${data.contact.email}">
+        <a href="mailto:${data.personalInfo.contact.email}">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M2 6.75A2.75 2.75 0 0 1 4.75 4h14.5A2.75 2.75 0 0 1 22 6.75v10.5A2.75 2.75 0 0 1 19.25 20H4.75A2.75 2.75 0 0 1 2 17.25V6.75Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v.217l9.25 6.17 9.25-6.17V6.75a1.25 1.25 0 0 0-1.25-1.25H4.75Zm15.5 2.783-7.72 5.153a.75.75 0 0 1-.82 0L4.75 8.283V17.25c0 .69.56 1.25 1.25 1.25h14.5c.69 0 1.25-.56 1.25-1.25V8.283Z"/></svg>
-          ${data.contact.email}
+          ${data.personalInfo.contact.email}
         </a>
-        <a href="tel:${data.contact.phone}">
+        <a href="tel:${data.personalInfo.contact.phone}">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2Z"/></svg>
-          ${data.contact.phone}
+          ${data.personalInfo.contact.phone}
         </a>
-        <a href="https://github.com/${data.contact.github.replace('@','')}" target="_blank">
+        <a href="https://github.com/${data.personalInfo.contact.github.replace('@','')}" target="_blank">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.48 2.87 8.28 6.84 9.63.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
           GitHub
         </a>
-        <a href="https://linkedin.com/in/${data.contact.linkedin.replace('@','')}" target="_blank">
+        <a href="https://linkedin.com/in/${data.personalInfo.contact.linkedin.replace('@','')}" target="_blank">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm15.5 11.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-10h2.88v1.36h.04c.4-.75 1.38-1.54 2.85-1.54 3.05 0 3.61 2.01 3.61 4.62v5.56z"/></svg>
           LinkedIn
         </a>
@@ -124,23 +124,31 @@ function renderPortfolio(data) {
     <section class="skills glass">
       <h3>Technical Skills</h3>
       <div class="skills-list">
-        ${Object.entries(data.technicalSkills).map(([cat, arr]) => `
-          <div class="skill-cat">
-            <strong>${cat}</strong>
-            <ul>
-              ${arr.map(skill => `<li>${skill}</li>`).join('')}
-            </ul>
-          </div>
-        `).join('')}
+        <div class="skill-cat">
+          <strong>Back-End</strong>
+          <ul>${data.technicalSkills.backEnd.map(skill => `<li>${skill}</li>`).join('')}</ul>
+        </div>
+        <div class="skill-cat">
+          <strong>Front-End</strong>
+          <ul>${data.technicalSkills.frontEnd.map(skill => `<li>${skill}</li>`).join('')}</ul>
+        </div>
+        <div class="skill-cat">
+          <strong>Development Tools</strong>
+          <ul>${data.technicalSkills.developmentTools.map(skill => `<li>${skill}</li>`).join('')}</ul>
+        </div>
+        <div class="skill-cat">
+          <strong>Programming Languages</strong>
+          <ul>${data.technicalSkills.programmingLanguages.map(skill => `<li>${skill}</li>`).join('')}</ul>
+        </div>
       </div>
     </section>
     <section class="experience glass">
       <h3>Experience</h3>
       <div class="experience-list">
-        ${data.relevantExperience.map(exp => `
+        ${data.experience.map(exp => `
           <div class="exp-card">
-            <h4>${exp.role}</h4>
-            <p>${exp.description}</p>
+            <h4>${exp.position} <span style="color:#7dd3fc;font-weight:400;">| ${exp.project}</span></h4>
+            <ul>${exp.description.map(line => `<li>${line}</li>`).join('')}</ul>
           </div>
         `).join('')}
       </div>
@@ -167,7 +175,14 @@ function renderPortfolio(data) {
     </section>
     <section class="softskills glass">
       <h3>Soft Skills</h3>
-      <ul>${data.softSkills.map(s => `<li>${s}</li>`).join('')}</ul>
+      <div class="experience-list">
+        ${data.softSkills.map(skill => `
+          <div class="exp-card">
+            <strong>${skill.name}</strong>
+            <p style="margin:6px 0 0 0;color:#b6eafe;font-size:0.98em;">${skill.description}</p>
+          </div>
+        `).join('')}
+      </div>
     </section>
     <section class="languages glass">
       <h3>Languages</h3>

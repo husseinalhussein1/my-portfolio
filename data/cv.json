@@ -1,0 +1,140 @@
+{
+  "personalInfo": {
+    "name": "Hussein Al Hussein",
+    "contact": {
+      "phone": "+212 724-119902",
+      "email": "husseinalhussein565@gmail.com",
+      "github": "@husseinalhussein1",
+      "linkedin": "@husseinalhussein1"
+    }
+  },
+  "summary": "I am a highly motivated Full Stack Developer with a solid foundation in ASP.NET Core and modern front-end technologies. I specialize in both Back-End development using .NET Core MVC and Front-End development with HTML5, CSS3, JavaScript, and React. With hands-on experience in API integration, database management, and user interface development, I am eager to contribute to a dynamic team and bring innovative solutions to life.",
+  "technicalSkills": {
+    "backEnd": [
+      ".NET Core",
+      "ASP.NET MVC",
+      "API Development",
+      "Entity Framework Core"
+    ],
+    "frontEnd": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "React",
+      "Angular",
+      "Bootstrap"
+    ],
+    "developmentTools": [
+      "Visual Studio",
+      "GitHub",
+      "SQL Server"
+    ],
+    "programmingLanguages": [
+      "C#",
+      "TypeScript",
+      "JavaScript"
+    ]
+  },
+  "experience": [
+    {
+      "position": "Back-End Developer",
+      "project": "Small Hotel Project",
+      "description": [
+        "Developed back-end services using ASP.NET Core and Entity Framework Core.",
+        "Integrated database functionality using LINQ, and created APIs to streamline data access."
+      ]
+    },
+    {
+      "position": "Full Stack Developer",
+      "project": "TV Channel Website",
+      "description": [
+        "Built a complete website using ASP.NET Core MVC, integrating databases with Entity Framework Core.",
+        "Designed the front-end using HTML, CSS (Bootstrap), and ASP.NET Razor pages."
+      ]
+    },
+    {
+      "position": "Front-End Developer",
+      "project": "Dictionary App (Angular SPA)",
+      "description": [
+        "Created a single-page application (SPA) with Angular, focusing on modularity, reusability, and performance.",
+        "Employed component-based architecture with Angular's Standalone Services for seamless front-end interaction."
+      ]
+    },
+    {
+      "position": "Full Stack Developer",
+      "project": "Training and Rehabilitation Center Website",
+      "description": [
+        "Developed the back-end using ASP.NET Core and front-end with Angular, enabling efficient data handling and user interaction.",
+        "Implemented API connections and database interactions using Entity Framework Core."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Computer Science - Software Engineering",
+      "institution": "Idlib University",
+      "duration": "2021 – Expected 2026"
+    },
+    {
+      "degree": "Full Stack Developer (ASP.NET Core & Angular)",
+      "institution": "MIDAD Project - \"1000 Programmers\"",
+      "duration": "2023 – 2024"
+    }
+  ],
+  "trainingCourses": [
+    {
+      "name": "Back-End API Development with ASP.NET Core",
+      "duration": "30 hours"
+    },
+    {
+      "name": "Front-End Development with Angular",
+      "duration": "36 hours"
+    },
+    {
+      "name": "MVC Architecture with ASP.NET Core",
+      "duration": "20 hours"
+    },
+    {
+      "name": "Object-Oriented Programming in C#",
+      "duration": "26 hours"
+    },
+    {
+      "name": "Entity Framework Core",
+      "duration": "18 hours"
+    }
+  ],
+  "softSkills": [
+    {
+      "name": "Team Collaboration",
+      "description": "Works well within cross-functional teams."
+    },
+    {
+      "name": "Problem-Solving",
+      "description": "Efficient at resolving complex technical issues."
+    },
+    {
+      "name": "Adaptability",
+      "description": "Quickly learns and applies new technologies."
+    },
+    {
+      "name": "Time Management",
+      "description": "Manages multiple tasks and meets deadlines."
+    },
+    {
+      "name": "Attention to Detail",
+      "description": "Ensures high-quality, clean, and tested code."
+    },
+    {
+      "name": "Communication",
+      "description": "Clear and concise in technical explanations."
+    },
+    {
+      "name": "Critical Thinking",
+      "description": "Analyzes problems and makes effective decisions."
+    }
+  ],
+  "languages": [
+    "Arabic",
+    "English"
+  ]
+}
