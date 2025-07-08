@@ -241,9 +241,9 @@ function renderStickyHeader(name, lang) {
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
           <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
         </div>
-        <span class="sticky-name">${name}</span>
+        <span class="sticky-name sticky-logo"><img src="data/hseno.svg" alt="logo" style="height:26px;filter:invert(68%) sepia(98%) saturate(1200%) hue-rotate(167deg) brightness(1);display:block;"></span>
       ` : `
-        <span class="sticky-name">${name}</span>
+        <span class="sticky-name sticky-logo"><img src="data/hseno.svg" alt="logo" style="height:26px;filter:invert(68%) sepia(98%) saturate(1200%) hue-rotate(167deg) brightness(1);display:block;"></span>
         <div class="sticky-btns">
           <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
