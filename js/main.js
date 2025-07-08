@@ -130,8 +130,7 @@ function renderPortfolio(data, lang) {
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
           <a href="data/Hussein-Alhussein-cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
         ` : `
-          <a href="data/Hussein-Alhussein-cv.pdf
-          " download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <a href="data/Hussein-Alhussein-cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
         `}
       </div>
@@ -151,7 +150,7 @@ function renderPortfolio(data, lang) {
           ${data.personalInfo.contact.phone}
         </a>
         <a href="https://wa.me/${data.personalInfo.contact.whatsapp.replace(/[^\d]/g, '')}" target="_blank">
-          <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#38bdf8"/><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.967-.94 1.166-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.007-.372-.009-.571-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.205 5.077 4.369.71.306 1.263.489 1.695.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#38bdf8"/><path fill="#23272f" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.967-.94 1.166-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.007-.372-.009-.571-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.205 5.077 4.369.71.306 1.263.489 1.695.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
           WhatsApp
         </a>
         <a href="https://github.com/${data.personalInfo.contact.github.replace('@','')}" target="_blank">
