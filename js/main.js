@@ -128,9 +128,10 @@ function renderPortfolio(data, lang) {
       <div class="hero-float-btns ${lang === 'ar' ? 'hero-float-ar' : 'hero-float-en'}">
         ${lang === 'ar' ? `
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
-          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <a href="data/Hussein-Alhussein-cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
         ` : `
-          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <a href="data/Hussein-Alhussein-cv.pdf
+          " download class="lang-switcher-btn hero-cv-btn">CV</a>
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
         `}
       </div>
@@ -239,13 +240,13 @@ function renderStickyHeader(name, lang) {
       ${lang === 'ar' ? `
         <div class="sticky-btns">
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
-          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <a href="data/Hussein-Alhussein-cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
         </div>
         <span class="sticky-name">${name}</span>
       ` : `
         <span class="sticky-name">${name}</span>
         <div class="sticky-btns">
-          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <a href="data/Hussein-Alhussein-cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
           <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
         </div>
       `}
