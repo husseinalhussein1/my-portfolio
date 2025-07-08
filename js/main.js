@@ -89,18 +89,43 @@ setTimeout(() => {
   }
 }, 100);
 
-// --- Portfolio rendering (updated for new JSON structure) ---
-const jsonPath = 'data/cv.json';
+// --- Language Switcher & Portfolio rendering ---
+const app = document.getElementById('app');
+const langSwitcher = document.createElement('button');
+langSwitcher.className = 'lang-switcher-btn';
+document.body.insertBefore(langSwitcher, app);
 
-fetch(jsonPath)
-  .then(res => res.json())
-  .then(data => renderPortfolio(data));
+let currentLang = localStorage.getItem('portfolioLang') || 'en';
+renderByLang(currentLang);
 
-function renderPortfolio(data) {
-  const app = document.getElementById('app');
+langSwitcher.onclick = function() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  localStorage.setItem('portfolioLang', currentLang);
+  renderByLang(currentLang);
+};
+
+function renderByLang(lang) {
+  const jsonPath = lang === 'ar' ? 'data/cv-ar.json' : 'data/cv.json';
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+  langSwitcher.textContent = lang === 'ar' ? 'EN' : 'AR';
+  fetch(jsonPath)
+    .then(res => res.json())
+    .then(data => renderPortfolio(data, lang));
+}
+
+function renderPortfolio(data, lang) {
   app.innerHTML = `
     <section class="hero glass">
-      <h1>${data.personalInfo.name}</h1>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>
+          <h1>${data.personalInfo.name}</h1>
+        </div>
+        <a href="data/cv.pdf" download class="download-cv-btn">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" style="vertical-align:middle;margin-left:4px;"><path fill="#059669" d="M12 16.5a1 1 0 0 1-1-1V5a1 1 0 1 1 2 0v10.5a1 1 0 0 1-1 1Z"/><path fill="#059669" d="M7.21 13.79a1 1 0 0 1 1.42-1.42l2.29 2.3 2.29-2.3a1 1 0 1 1 1.42 1.42l-3 3a1 1 0 0 1-1.42 0l-3-3Z"/><path fill="#059669" d="M5 20a1 1 0 0 1 0-2h14a1 1 0 1 1 0 2H5Z"/></svg>
+          ${lang === 'ar' ? 'تحميل السيرة الذاتية' : 'Download CV'}
+        </a>
+      </div>
       <h2>${data.summary}</h2>
       <div class="contact">
         <a href="mailto:${data.personalInfo.contact.email}">
@@ -110,6 +135,10 @@ function renderPortfolio(data) {
         <a href="tel:${data.personalInfo.contact.phone}">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2Z"/></svg>
           ${data.personalInfo.contact.phone}
+        </a>
+        <a href="https://wa.me/${data.personalInfo.contact.whatsapp.replace(/[^\d]/g, '')}" target="_blank">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#38bdf8"/><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.967-.94 1.166-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.007-.372-.009-.571-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.205 5.077 4.369.71.306 1.263.489 1.695.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          WhatsApp
         </a>
         <a href="https://github.com/${data.personalInfo.contact.github.replace('@','')}" target="_blank">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#38bdf8" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.48 2.87 8.28 6.84 9.63.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
@@ -122,29 +151,29 @@ function renderPortfolio(data) {
       </div>
     </section>
     <section class="skills glass">
-      <h3>Technical Skills</h3>
+      <h3>${lang === 'ar' ? 'المهارات التقنية' : 'Technical Skills'}</h3>
       <div class="skills-list">
         <div class="skill-cat">
-          <strong>Back-End</strong>
+          <strong>${lang === 'ar' ? 'الواجهة الخلفية' : 'Back-End'}</strong>
           <ul>${data.technicalSkills.backEnd.map(skill => `<li>${skill}</li>`).join('')}</ul>
         </div>
         <div class="skill-cat">
-          <strong>Front-End</strong>
+          <strong>${lang === 'ar' ? 'الواجهة الأمامية' : 'Front-End'}</strong>
           <ul>${data.technicalSkills.frontEnd.map(skill => `<li>${skill}</li>`).join('')}</ul>
         </div>
         <div class="skill-cat">
-          <strong>Development Tools</strong>
+          <strong>${lang === 'ar' ? 'أدوات التطوير' : 'Development Tools'}</strong>
           <ul>${data.technicalSkills.developmentTools.map(skill => `<li>${skill}</li>`).join('')}</ul>
         </div>
         <div class="skill-cat">
-          <strong>Programming Languages</strong>
+          <strong>${lang === 'ar' ? 'لغات البرمجة' : 'Programming Languages'}</strong>
           <ul>${data.technicalSkills.programmingLanguages.map(skill => `<li>${skill}</li>`).join('')}</ul>
         </div>
       </div>
     </section>
     <section class="experience glass">
-      <h3>Experience</h3>
-      <div class="experience-list">
+      <h3>${lang === 'ar' ? 'الخبرات العملية' : 'Experience'}</h3>
+      <div class="experience-list" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
         ${data.experience.map(exp => `
           <div class="exp-card">
             <h4>${exp.position} <span style="color:#7dd3fc;font-weight:400;">| ${exp.project}</span></h4>
@@ -154,7 +183,7 @@ function renderPortfolio(data) {
       </div>
     </section>
     <section class="education glass">
-      <h3>Education</h3>
+      <h3>${lang === 'ar' ? 'التعليم' : 'Education'}</h3>
       <div class="education-list">
         ${data.education.map(edu => `
           <div class="edu-card">
@@ -164,7 +193,7 @@ function renderPortfolio(data) {
       </div>
     </section>
     <section class="training glass">
-      <h3>Training Courses</h3>
+      <h3>${lang === 'ar' ? 'الدورات التدريبية' : 'Training Courses'}</h3>
       <div class="training-list">
         ${data.trainingCourses.map(tr => `
           <div class="train-card">
@@ -174,7 +203,7 @@ function renderPortfolio(data) {
       </div>
     </section>
     <section class="softskills glass">
-      <h3>Soft Skills</h3>
+      <h3>${lang === 'ar' ? 'المهارات الشخصية' : 'Soft Skills'}</h3>
       <div class="experience-list">
         ${data.softSkills.map(skill => `
           <div class="exp-card">
@@ -185,7 +214,7 @@ function renderPortfolio(data) {
       </div>
     </section>
     <section class="languages glass">
-      <h3>Languages</h3>
+      <h3>${lang === 'ar' ? 'اللغات' : 'Languages'}</h3>
       <ul>${data.languages.map(l => `<li>${l}</li>`).join('')}</ul>
     </section>
   `;
