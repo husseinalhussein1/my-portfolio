@@ -103,6 +103,8 @@ if (!stickyHeader) {
 }
 
 let currentLang = localStorage.getItem('portfolioLang') || 'en';
+let lastStickyLang = currentLang;
+let lastStickyName = '';
 renderByLang(currentLang);
 
 function renderByLang(lang) {
@@ -113,7 +115,9 @@ function renderByLang(lang) {
     .then(res => res.json())
     .then(data => {
       renderPortfolio(data, lang);
-      stickyHeader.innerHTML = `<span>${data.personalInfo.name}</span>`;
+      lastStickyName = data.personalInfo.name;
+      lastStickyLang = lang;
+      renderStickyHeader(data.personalInfo.name, lang);
     });
 }
 
@@ -229,6 +233,26 @@ function renderPortfolio(data, lang) {
   `;
 }
 
+function renderStickyHeader(name, lang) {
+  stickyHeader.innerHTML = `
+    <div class="sticky-header-content ${lang === 'ar' ? 'sticky-ar' : 'sticky-en'}">
+      ${lang === 'ar' ? `
+        <div class="sticky-btns">
+          <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
+          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+        </div>
+        <span class="sticky-name">${name}</span>
+      ` : `
+        <span class="sticky-name">${name}</span>
+        <div class="sticky-btns">
+          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
+        </div>
+      `}
+    </div>
+  `;
+}
+
 // زر التبديل من داخل الهيرو
 window.addEventListener('toggleLang', () => {
   renderByLang(currentLang === 'en' ? 'ar' : 'en');
@@ -243,4 +267,22 @@ window.addEventListener('scroll', function() {
   } else {
     stickyHeader.style.display = 'none';
   }
-}); 
+});
+
+// عند تغيير حجم الشاشة، أعد ضبط ظهور الهيدر حسب scrollY
+window.addEventListener('resize', function() {
+  if (window.scrollY > 80) {
+    stickyHeader.style.display = 'flex';
+  } else {
+    stickyHeader.style.display = 'none';
+  }
+});
+
+// عند تحميل الصفحة، أظهر الهيدر حسب scrollY
+(function initStickyHeaderDisplay() {
+  if (window.scrollY > 80) {
+    stickyHeader.style.display = 'flex';
+  } else {
+    stickyHeader.style.display = 'none';
+  }
+})(); 
