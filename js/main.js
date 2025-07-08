@@ -91,40 +91,49 @@ setTimeout(() => {
 
 // --- Language Switcher & Portfolio rendering ---
 const app = document.getElementById('app');
-const langSwitcher = document.createElement('button');
-langSwitcher.className = 'lang-switcher-btn';
-document.body.insertBefore(langSwitcher, app);
+// إزالة زر الترجمة العائم القديم إذا كان موجود
+const oldLangBtn = document.querySelector('.lang-switcher-btn');
+if (oldLangBtn) oldLangBtn.remove();
+let stickyHeader = document.querySelector('.sticky-header');
+if (!stickyHeader) {
+  stickyHeader = document.createElement('div');
+  stickyHeader.className = 'sticky-header';
+  stickyHeader.style.display = 'none';
+  document.body.appendChild(stickyHeader);
+}
 
 let currentLang = localStorage.getItem('portfolioLang') || 'en';
 renderByLang(currentLang);
-
-langSwitcher.onclick = function() {
-  currentLang = currentLang === 'en' ? 'ar' : 'en';
-  localStorage.setItem('portfolioLang', currentLang);
-  renderByLang(currentLang);
-};
 
 function renderByLang(lang) {
   const jsonPath = lang === 'ar' ? 'data/cv-ar.json' : 'data/cv.json';
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
-  langSwitcher.textContent = lang === 'ar' ? 'EN' : 'AR';
   fetch(jsonPath)
     .then(res => res.json())
-    .then(data => renderPortfolio(data, lang));
+    .then(data => {
+      renderPortfolio(data, lang);
+      stickyHeader.innerHTML = `<span>${data.personalInfo.name}</span>`;
+    });
 }
 
 function renderPortfolio(data, lang) {
+  const isMobile = window.innerWidth < 700;
   app.innerHTML = `
-    <section class="hero glass">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-        <div>
+    <section class="hero glass" style="position:relative;">
+      <div class="hero-float-btns ${lang === 'ar' ? 'hero-float-ar' : 'hero-float-en'}">
+        ${lang === 'ar' ? `
+          <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">EN</button>
+          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+        ` : `
+          <a href="data/cv.pdf" download class="lang-switcher-btn hero-cv-btn">CV</a>
+          <button class="lang-switcher-btn hero-lang-btn" onclick="window.dispatchEvent(new Event('toggleLang'))">AR</button>
+        `}
+      </div>
+      <div class="hero-row" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
           <h1>${data.personalInfo.name}</h1>
         </div>
-        <a href="data/cv.pdf" download class="download-cv-btn">
-          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" style="vertical-align:middle;margin-left:4px;"><path fill="#059669" d="M12 16.5a1 1 0 0 1-1-1V5a1 1 0 1 1 2 0v10.5a1 1 0 0 1-1 1Z"/><path fill="#059669" d="M7.21 13.79a1 1 0 0 1 1.42-1.42l2.29 2.3 2.29-2.3a1 1 0 1 1 1.42 1.42l-3 3a1 1 0 0 1-1.42 0l-3-3Z"/><path fill="#059669" d="M5 20a1 1 0 0 1 0-2h14a1 1 0 1 1 0 2H5Z"/></svg>
-          ${lang === 'ar' ? 'تحميل السيرة الذاتية' : 'Download CV'}
-        </a>
       </div>
       <h2>${data.summary}</h2>
       <div class="contact">
@@ -173,7 +182,7 @@ function renderPortfolio(data, lang) {
     </section>
     <section class="experience glass">
       <h3>${lang === 'ar' ? 'الخبرات العملية' : 'Experience'}</h3>
-      <div class="experience-list" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+      <div class="experience-list">
         ${data.experience.map(exp => `
           <div class="exp-card">
             <h4>${exp.position} <span style="color:#7dd3fc;font-weight:400;">| ${exp.project}</span></h4>
@@ -218,4 +227,20 @@ function renderPortfolio(data, lang) {
       <ul>${data.languages.map(l => `<li>${l}</li>`).join('')}</ul>
     </section>
   `;
-} 
+}
+
+// زر التبديل من داخل الهيرو
+window.addEventListener('toggleLang', () => {
+  renderByLang(currentLang === 'en' ? 'ar' : 'en');
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  localStorage.setItem('portfolioLang', currentLang);
+});
+
+// Sticky header on scroll
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 80) {
+    stickyHeader.style.display = 'flex';
+  } else {
+    stickyHeader.style.display = 'none';
+  }
+}); 
